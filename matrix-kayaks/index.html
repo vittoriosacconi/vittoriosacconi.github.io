@@ -105,7 +105,7 @@ main{position:relative;z-index:3;pointer-events:none}
 .solid{position:relative;z-index:5;background:var(--bg)}
 .specs{padding:18vh clamp(20px,6vw,96px) 10vh;max-width:1360px;margin:0 auto}
 .specs h2{font-size:clamp(40px,5.4vw,88px);line-height:.95;margin-bottom:40px}
-.mods{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mods{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .mod{background:var(--paper);border-radius:22px;padding:24px 22px;box-shadow:inset 0 0 0 1px var(--line);cursor:pointer;transition:transform .4s var(--ease),box-shadow .4s}
 .mod:hover{transform:translateY(-4px)}
 .mod.on{box-shadow:inset 0 0 0 2px var(--coral)}
@@ -224,7 +224,7 @@ footer{background:var(--river);color:#8fb3c6;font-size:12px;text-align:center;pa
     <div class="tag">Fábrica rosarina · desde 1986</div>
     <h2>Kayaks hechos <em>para tu río.</em></h2>
     <p>Matrix fabrica kayaks y palas en Rosario hace casi 40 años. Cada kayak se hace para quien lo va a remar, con los colores que elija.</p>
-    <div class="nums"><div><b>1986</b>fabricando</div><div><b>~12 kg</b>peso promedio</div><div><b>5+1</b>modelos</div></div>
+    <div class="nums"><div><b>1986</b>fabricando</div><div><b>~12 kg</b>peso promedio</div><div><b>6</b>modelos</div></div>
   </div></section>
 
   <section class="ch" data-v="color" data-name="Tu color"><div class="panel">
@@ -238,8 +238,8 @@ footer{background:var(--river);color:#8fb3c6;font-size:12px;text-align:center;pa
 
   <section class="ch" data-v="models" data-name="Modelos"><div class="panel">
     <div class="tag">02 · Uno para cada remada</div>
-    <h2>Cinco modelos, <em>uno en camino.</em></h2>
-    <p>Yukon, Mantra, Pampero y Wayra Doble, entre otros: cada uno con un nivel de estabilidad distinto. Contales cómo y dónde remás y te recomiendan el tuyo.</p>
+    <h2>Seis modelos, <em>uno para vos.</em></h2>
+    <p>Yukon, Mantra, Pampero, Fusion, Wayra Doble y Ona: cada uno con un nivel de estabilidad distinto. Contales cómo y dónde remás y te recomiendan el tuyo.</p>
     <div class="acts" id="mBtns"></div>
   </div></section>
 
@@ -373,16 +373,16 @@ function paint(){$('#kDeck').setAttribute('fill',COL[st.deck][1]);$('#kDeckS').s
 $$('.zone').forEach(b=>b.onclick=()=>{zone=b.dataset.z;paint()});
 $$('#sw button').forEach(b=>b.onclick=()=>{st[zone]=+b.dataset.c;paint()});
 /* models */
-const MOD=[['Yukon','Uno de sus modelos de línea.'],['Mantra','Uno de sus modelos de línea.'],['Pampero','Uno de sus modelos de línea.'],['Wayra Doble','Kayak doble, para remar de a dos.'],['Recomendame','Contales cómo remás y te asesoran.']];
-let mSel=4;
+const MOD=[['Yukon'],['Mantra'],['Pampero'],['Fusion'],['Wayra Doble'],['Ona'],['Recomendame']];
+const RC=6;let mSel=RC;
 $('#mBtns').innerHTML=MOD.map((m,i)=>`<button class="act" data-m="${i}">${m[0]}</button>`).join('');
-$('#mods').innerHTML=MOD.slice(0,4).map((m,i)=>`<div class="mod" data-m="${i}"><h3>${m[0]}</h3><p>${i===3?'Kayak doble, para compartir la remada.':'Consultá medidas y estabilidad según cómo y dónde remás.'}</p></div>`).join('');
+$('#mods').innerHTML=MOD.slice(0,RC).map((m,i)=>`<div class="mod" data-m="${i}"><h3>${m[0]}</h3><p>${m[0]==='Wayra Doble'?'Kayak doble, para compartir la remada.':'Consultá medidas y estabilidad según cómo y dónde remás.'}</p></div>`).join('');
 $$('[data-m]').forEach(b=>b.onclick=()=>{mSel=+b.dataset.m;$$('[data-m]').forEach(x=>x.classList.toggle('on',+x.dataset.m===mSel));wa()});
-$$('[data-m="4"]').forEach(x=>x.classList.add('on'));
-function wa(){const c=k=>COL[st[k]][0].toLowerCase();const m=mSel===4?'':` el modelo ${MOD[mSel][0]}`;
-  const txt=`Hola! Vi la página y quiero consultar por un kayak${m}${mSel===4?' (no sé qué modelo me conviene, ¿me recomiendan?)':''}. Me gustaría con cubierta ${c('deck')}, casco ${c('hull')} y filete ${c('stripe')}. ¿Precio y tiempo de entrega?`;
+$$(`[data-m="${RC}"]`).forEach(x=>x.classList.add('on'));
+function wa(){const c=k=>COL[st[k]][0].toLowerCase();const m=mSel===RC?'':` el modelo ${MOD[mSel][0]}`;
+  const txt=`Hola! Vi la página y quiero consultar por un kayak${m}${mSel===RC?' (no sé qué modelo me conviene, ¿me recomiendan?)':''}. Me gustaría con cubierta ${c('deck')}, casco ${c('hull')} y filete ${c('stripe')}. ¿Precio y tiempo de entrega?`;
   const href=`https://wa.me/${WA}?text=`+encodeURIComponent(txt);$('#waTop').href=href;$('#waBottom').href=href;
-  $('#cfgLine').innerHTML=`${mSel===4?'Kayak Matrix':MOD[mSel][0]} · `+Object.keys(ZN).map(k=>`<i style="background:${COL[st[k]][1]}"></i>${ZN[k]} ${c(k)}`).join(' ')}
+  $('#cfgLine').innerHTML=`${mSel===RC?'Kayak Matrix':MOD[mSel][0]} · `+Object.keys(ZN).map(k=>`<i style="background:${COL[st[k]][1]}"></i>${ZN[k]} ${c(k)}`).join(' ')}
 /* gallery */
 const G=['rio','colores','proalsur','palas','mantra','playa','yukon','taller','mar','pala','manija'];
 $('#gal').innerHTML=G.map((k,i)=>`<button data-i="${i}"><img loading="lazy" src="${PIC[k]}" alt="${CAP[k]}"></button>`).join('');
