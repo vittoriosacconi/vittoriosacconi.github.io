@@ -307,7 +307,7 @@ function chapters(onActive){
   onScroll();return{get active(){return chs[active]}}}
 function loader(srcs){let n=0;const done=()=>$('#loader').classList.add('done');srcs.forEach(s=>{const i=new Image();i.onload=i.onerror=()=>{n++;$('#lbar').style.width=(n/srcs.length*100)+'%';if(n===srcs.length)setTimeout(done,250)};i.src=s});setTimeout(done,2500)}
 
-const WA='5493412519385';
+const WA='5493416933838';
 const CAP={hero:'Bowie 150 con mango de asta de ciervo','sello':'Sello R. Perpiñá Maker, guarda de bronce y asta','sello2':'Sello grabado en la hoja','asta':'Mango de asta de ciervo con remaches de bronce','oso-cuero':'Oso Dorado, Bowie americano','campero-cuero':'Campero 10″ con mango de madera y vaina de cuero'};
 const K=[
  {k:'bowie',n:'Bowie 150',m:'Asta de ciervo',h:15,e:5},
